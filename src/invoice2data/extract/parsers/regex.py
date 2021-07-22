@@ -34,13 +34,15 @@ def parse(template, settings, content, legacy=False):
     if "type" in settings:
         for k, v in enumerate(result):
             result[k] = template.coerce_type(v, settings["type"])
-
+    
     if "group" in settings:
         if settings["group"] == "sum":
             result = sum(result)
         else:
             logger.warning("Unsupported grouping method: " + settings["group"])
             return None
+    elif "duplicates" in settings and settings["duplicates"]:
+        pass
     else:
         # Remove duplicates maintaining the order by default (it's more
         # natural). Don't do that for legacy parsing to keep backward

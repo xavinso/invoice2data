@@ -10,7 +10,7 @@ from unidecode import unidecode
 import logging
 from collections import OrderedDict
 from . import parsers
-from .plugins import lines, tables
+from .plugins import lines, tables, blocks
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +27,7 @@ OPTIONS_DEFAULT = {
 
 PARSERS_MAPPING = {"lines": parsers.lines, "regex": parsers.regex, "static": parsers.static}
 
-PLUGIN_MAPPING = {"lines": lines, "tables": tables}
+PLUGIN_MAPPING = {"lines": lines, "tables": tables, "blocks": blocks}
 
 
 class InvoiceTemplate(OrderedDict):
@@ -194,7 +194,7 @@ class InvoiceTemplate(OrderedDict):
             else:
                 # Legacy syntax support (backward compatibility)
                 logger.debug("field=%s | regexp=%s", k, v)
-
+                
                 result = None
                 if k.startswith("sum_amount") and type(v) is list:
                     k = k[4:]

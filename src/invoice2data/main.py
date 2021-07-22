@@ -79,9 +79,6 @@ def extract_data(invoicefile, templates=None, input_module=pdftotext):
         templates = read_templates()
 
     # print(templates[0])
-
-    print('this is a submodule')
-
     extracted_str = input_module.to_text(invoicefile).decode("utf-8")
 
     logger.debug("START pdftotext result ===========================")
