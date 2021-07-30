@@ -32,14 +32,17 @@ def extract(self, content, output):
         return
 
     blocks_body = content[start.end() : end.start()]
-    logger.debug("START table body content ========================")
-    logger.debug(blocks_body)
-    logger.debug("END table body content ==========================")
     logger.debug(f"Block regex pattern = {blocks['block']}")
 
     blocks_output = []
 
     for block in re.findall(blocks['block'], blocks_body):
+        if isinstance(block, tuple):
+            block = block[0]
+
+        logger.debug("START block content ========================")
+        logger.debug(type(block))
+        logger.debug("END block content ==========================")
         blocks_result = {}
         for k, v in blocks["fields"].items():
             if isinstance(v, dict):
